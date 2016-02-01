@@ -1,4 +1,4 @@
-# staffjoy-python
+# client_python
 
 A light wrapper for the [Staffjoy](https://www.staffjoy.com) API. 
 
