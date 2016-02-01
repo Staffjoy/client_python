@@ -22,3 +22,6 @@ To get your organization ID, look at the URL path when you go to the Manager app
 ## Updates
 
 If you use this library, please subscribe to the [Staffjoy API Updates Google Group](https://groups.google.com/forum/#!forum/staffjoy-api-updates) for important notifications about changes and deprecations.
+
+## Usage
+
