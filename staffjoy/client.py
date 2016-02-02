@@ -10,7 +10,7 @@ class Client(Resource):
         return Organization.get(parent=self, id=id)
 
     def create_organization(self, **kwargs):
-    	return Organization.create(parent=self, **kwargs)
+        return Organization.create(parent=self, **kwargs)
 
     """
     def get_users(self,
