@@ -1,5 +1,7 @@
 from .resource import Resource
 from .resources.organization import Organization
+from .resources.cron import Cron
+from .resources.user import User
 
 
 class Client(Resource):
@@ -12,15 +14,14 @@ class Client(Resource):
     def create_organization(self, **kwargs):
         return Organization.create(parent=self, **kwargs)
 
-    """
-    def get_users(self,
-                  limit=25,
-                  offset=0,
-                  filterByUsername=None,
-                  filterByEmail=None):
+    def cron(self):
+        """Internal only - cron job manual timer"""
+        return Cron.get_all(parent=self)
 
+    def get_users(self, limit=25, offset=0, **kwargs):
 
+        # Some supported filters: filterbyUsername, filterByEmail
+        return User.get_all(parent=self, limit=limit, offset=offset, **kwargs)
 
     def get_user(self, id):
-        pass
-    """
+        return User.get(parent=self, id=id)

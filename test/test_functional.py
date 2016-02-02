@@ -49,6 +49,11 @@ def test_org_crud():
     l = o.get_location(l_id)
     assert l.data.get("name") == "La Taqueria"
 
+    logger.debug("Testing role crud")
+    r = l.create_role(name="Kitchen")
+    r.patch(name="Cocina")
+    r.delete()
+
     logger.debug("Deleting location")
     l.delete()
     del l

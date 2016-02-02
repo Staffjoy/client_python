@@ -1,5 +1,6 @@
 from ..resource import Resource
 from .location import Location
+from .admin import Admin
 
 
 class Organization(Resource):
@@ -14,3 +15,13 @@ class Organization(Resource):
 
     def create_location(self, **kwargs):
         return Location.create(parent=self, **kwargs)
+
+    def get_admins(self):
+        return Admin.get_all(parent=self)
+
+    def get_admin(self, id):
+        return Admin.get(parent=self, id=id)
+
+    def create_admin(self, **kwargs):
+        """Typically just pass email"""
+        return Admin.create(parent=self, **kwargs)

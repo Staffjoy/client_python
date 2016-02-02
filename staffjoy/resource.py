@@ -75,7 +75,7 @@ class Resource:
             return base_obj._handle_request_exception(r)
 
         response = r.json()
-        objects_data = response.get(base_obj.ENVELOPE, [])
+        objects_data = response.get(base_obj.ENVELOPE or base_obj, [])
 
         return_objects = []
         for data in objects_data:
@@ -119,7 +119,10 @@ class Resource:
             return self._handle_request_exception(r)
 
         response = r.json()
-        self.data = response.get("data", {})
+        if self.ENVELOPE:
+            self.data = response.get(self.ENVELOPE, {})
+        else:
+            self.data = response
 
         # Move to separate function so it can be overrridden
         self._process_meta(response)
