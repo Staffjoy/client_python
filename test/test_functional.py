@@ -23,7 +23,8 @@ def test_org_crud():
     c = Client(key=KEY, env=ENV)
 
     # Just some basic stuff
-    c.get_plans()
+    assert len(c.get_plans()) > 0
+    assert len(c.get_timezones()) > 0
 
     logger.debug("Fetching organization")
     o = c.get_organization(TEST_ORG)
