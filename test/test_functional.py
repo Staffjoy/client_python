@@ -16,10 +16,14 @@ For a developer access, please email help@staffjoy.com
 TEST_ORG = 18
 ENV = "stage"
 KEY = os.environ.get("STAFFJOY_STAGE_API_KEY")
+TEST_WORKER = "feynman@7bridg.es"
 
 
 def test_org_crud():
     c = Client(key=KEY, env=ENV)
+
+    # Just some basic stuff
+    c.get_plans()
 
     logger.debug("Fetching organization")
     o = c.get_organization(TEST_ORG)
@@ -52,6 +56,9 @@ def test_org_crud():
     logger.debug("Testing role crud")
     r = l.create_role(name="Kitchen")
     r.patch(name="Cocina")
+    logger.debug("Adding worker")
+    r.get_workers()
+    r.create_worker(email=TEST_WORKER)
     r.delete()
 
     logger.debug("Deleting location")
