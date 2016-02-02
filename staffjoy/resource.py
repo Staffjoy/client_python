@@ -17,7 +17,6 @@ class Resource:
                  key="",
                  config=None,
                  env="prod",
-                 logger=None,
                  data={},
                  route={},
                  meta={}):
@@ -25,9 +24,6 @@ class Resource:
         self.key = key
 
         self.config = config or config_from_env.get(env, "prod")
-        if logger is None:
-            self.logger = logging.getLogger()
-            self.logger.setLevel(self.config.LOG_LEVEL)
 
         # These should be overridden by child classes
         self.data = data  # Data from the read method
@@ -47,7 +43,7 @@ class Resource:
         if id is not None and cls.ID_NAME is not None:
             route[cls.ID_NAME] = id
 
-        obj = cls(key=parent.key, route=route, logger=parent.logger)
+        obj = cls(key=parent.key, route=route, config=parent.config)
 
         if data:
             # This is used in "get all" queries
@@ -60,18 +56,22 @@ class Resource:
     @classmethod
     def get_all(cls, parent=None, **params):
 
+
+        if parent is not None:
+            route = copy(parent.route)
+        else:
+            route = {}
         if cls.ID_NAME is not None:
             # Empty string triggers "get all resources"
             route[cls.ID_NAME] = ""
 
-        base_obj = cls(key=parent.key, route=route, logger=parent.logger)
+        base_obj = cls(key=parent.key, route=route, config=parent.config)
         """Perform a read request against the resource"""
-        base_obj.logger.debug("Fetching all {}".format(base_obj._url()))
-        r = requests.get(self._url(), auth=(base_obj.key, None), params=params)
-        base_obj.logger.debug("Response {}".format(r))
 
-        if r.status_code not in self.TRUTHY_CODES:
-            return self._handle_request_exception(r)
+        r = requests.get(base_obj._url(), auth=(base_obj.key, ""), params=params)
+
+        if r.status_code not in cls.TRUTHY_CODES:
+            return base_obj._handle_request_exception(r)
 
         response = r.json()
         objects_data = response.get(base_obj.ENVELOPE, [])
@@ -80,7 +80,7 @@ class Resource:
         for data in objects_data:
             # Note that this approach does not get meta data
             return_objects.append(cls.get(parent=parent,
-                                          id=data.get(self.ID_NAME),
+                                          id=data.get(cls.ID_NAME),
                                           data=data))
 
         return return_objects
@@ -97,23 +97,21 @@ class Resource:
             data = None
 
         code = request.status_code
-        if code is requests.codes.bad:
+        if code == requests.codes.bad:
             raise BadRequestException(response=data)
 
-        if code is requests.code.unauthorized:
+        if code == requests.codes.unauthorized:
             raise UnauthorizedException(response=data)
 
-        if code is requests.code.not_found:
+        if code == requests.codes.not_found:
             raise UnauthorizedException(response=data)
 
         # Generic error fallback
-        request.raise_for_exception()
+        request.raise_for_status()
 
     def fetch(self):
         """Perform a read request against the resource"""
-        self.logger.debug("Fetching {}".format(self._url()))
-        r = requests.get(self._url(), auth=(self.key, None))
-        self.logger.debug("Fetch response {}".format(r))
+        r = requests.get(self._url(), auth=(self.key, ""))
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
 
@@ -123,8 +121,6 @@ class Resource:
         # Move to separate function so it can be overrridden
         self._process_meta(response)
 
-        self.logger.debug("Fetched {}")
-
     def _process_meta(self, response):
         """Process additional data sent in response"""
         for key in self.META_ENVELOPES:
@@ -133,22 +129,16 @@ class Resource:
     def delete(self):
         """Delete the object"""
 
-        self.logger.debug("Calling delete to {}".format(self._url()))
-        r = requests.get(self._url(), auth=(self.key, None))
-        self.logger.debug("Delete response {}".format(r))
+        r = requests.get(self._url(), auth=(self.key, ""))
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
-        self.logger.debug("Deleted {}".format(self))
 
     def patch(self, **kwargs):
         """Change attributes of the item"""
-        self.logger.debug("Calling patch to {}".format(self._url()))
-        r = requests.get(self._url(), auth=(self.key, None))
-        self.logger.debug("Patch response {}".format(r))
+        r = requests.get(self._url(), auth=(self.key, ""))
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
 
-        self.logger.debug("Patched {}".format(self))
 
         # Refetch for safety. We could modify based on response,
         # but I'm afraid of some edge cases and marshal functions.
@@ -163,7 +153,7 @@ class Resource:
         if id is not None and cls.ID_NAME is not None:
             route[cls.ID_NAME] = id
 
-        obj = cls(key=parent.key, route=route, logger=parent.logger)
+        obj = cls(key=parent.key, route=route, config=parent.config)
 
         obj.fetch()
         return obj

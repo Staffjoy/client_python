@@ -3,8 +3,8 @@ from .resources.organization import Organization
 
 
 class Client(Resource):
-    def get_organizations(self):
-        return Organization.get_all(parent=self)
+    def get_organizations(self, limit=25, offset=0):
+        return Organization.get_all(parent=self, limit=limit, offset=offset)
 
     def get_organization(self, id):
         return Organization.get(parent=self, id=id)
