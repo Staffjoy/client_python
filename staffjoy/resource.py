@@ -56,7 +56,6 @@ class Resource:
     @classmethod
     def get_all(cls, parent=None, **params):
 
-
         if parent is not None:
             route = copy(parent.route)
         else:
@@ -68,7 +67,9 @@ class Resource:
         base_obj = cls(key=parent.key, route=route, config=parent.config)
         """Perform a read request against the resource"""
 
-        r = requests.get(base_obj._url(), auth=(base_obj.key, ""), params=params)
+        r = requests.get(base_obj._url(),
+                         auth=(base_obj.key, ""),
+                         params=params)
 
         if r.status_code not in cls.TRUTHY_CODES:
             return base_obj._handle_request_exception(r)
@@ -94,7 +95,7 @@ class Resource:
         try:
             data = request.json()
         except:
-            data = None
+            data = {}
 
         code = request.status_code
         if code == requests.codes.bad:
@@ -129,16 +130,17 @@ class Resource:
     def delete(self):
         """Delete the object"""
 
-        r = requests.get(self._url(), auth=(self.key, ""))
+        r = requests.delete(self._url(), auth=(self.key, ""))
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
 
     def patch(self, **kwargs):
         """Change attributes of the item"""
-        r = requests.get(self._url(), auth=(self.key, ""))
+        print self._url()
+        print kwargs
+        r = requests.patch(self._url(), auth=(self.key, ""), data=kwargs)
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
-
 
         # Refetch for safety. We could modify based on response,
         # but I'm afraid of some edge cases and marshal functions.
@@ -146,18 +148,25 @@ class Resource:
 
     @classmethod
     def create(cls, parent=None, **kwargs):
+        """Create an object and return it"""
+
         if parent is None:
-            return cls()
+            raise Exception("Parent class is required")
 
         route = copy(parent.route)
-        if id is not None and cls.ID_NAME is not None:
-            route[cls.ID_NAME] = id
+        if cls.ID_NAME is not None:
+            route[cls.ID_NAME] = ""
 
         obj = cls(key=parent.key, route=route, config=parent.config)
 
-        obj.fetch()
+        response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
+
+        # No envelope on post requests
+        data = response.json()
+        obj.route[obj.ID_NAME] = data.get("id")
+        obj.data = data
+
         return obj
-        pass
 
     def __str__(self):
         return "{} id {}".format(self.__class__.__name__,

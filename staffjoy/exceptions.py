@@ -7,8 +7,7 @@ class UnauthorizedException(Exception):
         super(UnauthorizedException, self).__init__()
 
     def __str__(self):
-        return '\n Status: %s \n Reason: %s \n Error Message: %s\n' % (
-            self.code, self.reason, self.error_message)
+        return "\n Code: {} \n Message: {} \n".format(self.code, self.message)
 
 
 class NotFoundException(Exception):
@@ -17,11 +16,10 @@ class NotFoundException(Exception):
         self.code = code
         # We envelope error messages like this
         self.message = response.get("message", "Unknown Error")
-        super(UnauthorizedException, self).__init__()
+        super(NotFoundException, self).__init__()
 
     def __str__(self):
-        return '\n Status: %s \n Reason: %s \n Error Message: %s\n' % (
-            self.code, self.reason, self.error_message)
+        return "\n Code: {} \n Message: {} \n".format(self.code, self.message)
 
 
 class BadRequestException(Exception):
@@ -30,8 +28,7 @@ class BadRequestException(Exception):
         self.code = code
         # We envelope error messages like this
         self.message = response.get("message", "Unknown Error")
-        super(UnauthorizedException, self).__init__()
+        super(BadRequestException, self).__init__()
 
     def __str__(self):
-        return '\n Status: %s \n Reason: %s \n Error Message: %s\n' % (
-            self.code, self.reason, self.error_message)
+        return "\n Code: {} \n Message: {} \n".format(self.code, self.message)
