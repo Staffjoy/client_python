@@ -62,3 +62,5 @@ def test_org_crud():
     all_locations = o.get_locations()
     for location in all_locations:
         location.delete()
+
+    assert 0 == len(o.get_locations())
