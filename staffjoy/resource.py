@@ -88,6 +88,8 @@ class Resource:
 
     def _url(self):
         """Get the URL for the resource"""
+        if self.ID_NAME not in self.route.keys() and "id" in self.data.keys():
+            self.route[self.ID_NAME] = self.data["id"]
         return self.config.BASE + self.PATH.format(**self.route)
 
     def _handle_request_exception(self, request):
@@ -167,6 +169,9 @@ class Resource:
         obj.data = data
 
         return obj
+
+    def get_id(self):
+        return self.data.get("id", self.route.get(self.ID_NAME))
 
     def __str__(self):
         return "{} id {}".format(self.__class__.__name__,

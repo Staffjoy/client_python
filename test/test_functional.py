@@ -1,6 +1,8 @@
 import os
 
-from staffjoy import Client
+import pytest
+
+from staffjoy import Client, UnauthorizedException
 
 from . import logger
 """
@@ -22,8 +24,41 @@ def test_org_crud():
     logger.debug("Fetching organization")
     o = c.get_organization(TEST_ORG)
 
-    # Changing org name
-    o.patch(name="[Start] Continuous integration test")
+    assert o.get_id() == TEST_ORG
+
+    location_count = len(o.get_locations())
+
+    logger.debug("Changing organization name")
+    o.patch(name="[In Progress] Continuous integration test")
+
+    logger.debug("Creating a location")
+    l = o.create_location(name="El Farolito", timezone="America/Los_Angeles")
+    l_id = l.get_id()
+    logger.debug("Location id {}".format(l_id))
+
+    assert l.data.get("name") == "El Farolito"
+    logger.debug("Changing location name")
+    l.patch(name="La Taqueria")
+
+    logger.debug("Checking that location is created")
+    new_location_count = len(o.get_locations())
+    assert new_location_count == (location_count + 1)
+    del l
+
+    logger.debug("Fetching location by ID")
+    l = o.get_location(l_id)
+    assert l.data.get("name") == "La Taqueria"
+
+    logger.debug("Deleting location")
+    l.delete()
+    del l
+    logger.debug("Making sure location no longer exists")
+
+    with pytest.raises(UnauthorizedException):
+        o.get_location(l_id)
 
     logger.debug("Finishing up")
     o.patch(name="Continuous integration test")
+    all_locations = o.get_locations()
+    for location in all_locations:
+        location.delete()
