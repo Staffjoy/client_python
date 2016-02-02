@@ -13,7 +13,7 @@ Pip support coming soon
 Authentication keys are currently tied to an individual user's account. To issue multiple keys, we currently suggest 
 
 * **Permanant**: Every Staffjoy account includes a permanent API token that can be accessed from [My Account](https://www.staffjoy.com/auth/api-key) while logged in. 
-* **Time-based (6-hour): To issue an API token that is valid for 6 hours, visit [this link](https://www.staffjoy.com/auth/api-token) while logged in (note: it is JSON-encoded)
+* **Time-based (6-hour)**: To issue an API token that is valid for 6 hours, visit [this link](https://www.staffjoy.com/auth/api-token) while logged in (note: it is JSON-encoded)
 * **Time-based (other lengths)**: Please email help@staffjoy.com
 
 To get your organization ID, look at the URL path when you go to the Manager app while logged in.
@@ -41,7 +41,7 @@ org.get_locations()
 # Add an new location
 loc = org.create_location(name="Staffjoy HQ", timezone="America/Los_Angeles")
 
-# Modify its timezone
+# Modify its name
 loc.patch(name="San Francisco")
 
 # See roles
