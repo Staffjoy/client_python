@@ -4,6 +4,8 @@ A light wrapper for the [Staffjoy](https://www.staffjoy.com) API in Python.
 
 This library does not include permissions management, and it is primarily used across microservices internally. Some of its features include internal-only endpoints.
 
+[![Build Status](https://travis-ci.org/StaffJoy/client_python.svg?branch=master)](https://travis-ci.org/StaffJoy/client_python)
+
 ## Installation
 
 Pip support coming soon
