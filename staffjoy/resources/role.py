@@ -1,7 +1,6 @@
 from ..resource import Resource
 from .worker import Worker
 from .schedule import Schedule
-from .timeclock import Timeclock
 
 
 class Role(Resource):
@@ -22,12 +21,3 @@ class Role(Resource):
 
     def get_schedule(self, id):
         return Schedule.get(parent=self, id=id)
-
-    def get_timeclocks(self, **kwargs):
-        return Timeclock.get_all(parent=self, **kwargs)
-
-    def get_timeclock(self, id):
-        return Timeclock.get(parent=self, id=id)
-
-    def create_timeclock(self, **kwargs):
-        return Timeclock.create(parent=self, **kwargs)
