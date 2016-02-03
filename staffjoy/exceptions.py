@@ -23,7 +23,7 @@ class NotFoundException(Exception):
 
 
 class BadRequestException(Exception):
-    def __init__(self, code=401, response={}):
+    def __init__(self, code=400, response={}):
 
         self.code = code
         # We envelope error messages like this
