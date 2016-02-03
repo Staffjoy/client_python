@@ -1,8 +1,15 @@
 language: python
 python:
-      - "2.7"
+- '2.7'
 script:
-      - pip install -r requirements.txt
-      - pip install -r requirements-test.txt
-      - make test
-
+- pip install -r requirements.txt
+- pip install -r requirements-test.txt
+- make test
+deploy:
+  provider: pypi
+  user: philipithomas
+  on:
+    tags: true
+    branch: master
+  password:
+    secure: ZnhnCCoVMwte/LzaJqtqGIwcw6rD0HeQGUGczSfioEiLEqqJswbf1Fbj/xpbifoMHxwnBuoItOInaAaERXWaV+3uM7zz9jOJtfEim9Z9zlYpAC0r4CG6qYOQiY743XnL5DLV7jzb1REr9zYMumK8jY+AaTYD3pMODolUSjwfnOGYUoTbagvzzh9DTmgAyO73Z/XByHu6vZhSWqBo0V7PKdU0V/XFhkp1yNwoxnChlOUOsmvlVhZVxR1nDvfLIEv91wHXeO1HQjgwc093JHD+vo127KqrJu37L/lz5MvMX4VvSJwnvZJvs3ZaImiDT1Y9V0Y9ymlPQDRkgS2mLfJFMVagf3nLekZdHf9mGSwTWAdDWz2ha/ptj05fIO1/Cxfo6wnsxRMBVCwR0kVrOpesOgus66I0TZczDaoir1f4hxs6HoT40fZ5XXMR2VLfJ429+Mh8kCAgl0DQZX4wQd/dYguKKPCo6zmSNuJEStHK53MHsFkFsnivPp4o2hJTq/4NcGTp8Erl8cHJX8imcDKxK20GiDatzYAbx3ogygrmM1R0O2JG2Ma1h7unp+YZ/67i7wuTi0IYfC51d4fcXWxS/zGaviidFiipLdK+SS31kBUM0dPEGN7lSEaqIqXMVh4+j/HcPvq5/LNJje9zEYsNOcCjLmjjlSFDEPlI5h1ZRis=
