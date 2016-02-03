@@ -8,7 +8,7 @@ This library does not include permissions management, and it is primarily used a
 
 ## Installation
 
-Pip support coming soon
+`pip install staffjoy`
 
 ## Authentication
 
