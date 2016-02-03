@@ -10,7 +10,4 @@ setup(
     url = "https://github.com/staffjoy/client_python",
     download_url = "https://github.com/StaffJoy/client_python/archive/0.2.tar.gz",
     keywords = ["staffjoy-api", "staffjoy", "staff joy"],
-    install_requires = [
-        "requests[security]"
-    ]
 )
