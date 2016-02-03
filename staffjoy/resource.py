@@ -141,8 +141,6 @@ class Resource:
 
     def patch(self, **kwargs):
         """Change attributes of the item"""
-        print self._url()
-        print kwargs
         r = requests.patch(self._url(), auth=(self.key, ""), data=kwargs)
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
