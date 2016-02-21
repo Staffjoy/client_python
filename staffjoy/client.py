@@ -3,7 +3,6 @@ from .resources.organization import Organization
 from .resources.cron import Cron
 from .resources.user import User
 from .resources.plan import Plan
-from .resources.timezone import Timezone
 
 
 class Client(Resource):
@@ -36,6 +35,3 @@ class Client(Resource):
 
     def get_plan(self, id):
         return Plan.get(parent=self, id=id)
-
-    def get_timezones(self):
-        return Timezone.get_all(parent=self)

@@ -2,7 +2,7 @@ from ..resource import Resource
 
 
 class Cron(Resource):
-    PATH = "cron/"
+    PATH = "internal/cron/"
     ID_NAME = ""
     ENVELOPE = None
 
