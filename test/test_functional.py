@@ -24,7 +24,6 @@ def test_org_crud():
 
     # Just some basic stuff
     assert len(c.get_plans()) > 0
-    assert len(c.get_timezones()) > 0
 
     logger.debug("Fetching organization")
     o = c.get_organization(TEST_ORG)
@@ -60,20 +59,24 @@ def test_org_crud():
     logger.debug("Adding worker")
     r.get_workers()
     r.create_worker(email=TEST_WORKER)
+
+    logger.debug("Deleting worker")
     r.delete()
 
     logger.debug("Deleting location")
     l.delete()
     del l
-    logger.debug("Making sure location no longer exists")
+    logger.debug("Making sure location has been archived")
 
-    with pytest.raises(UnauthorizedException):
-        o.get_location(l_id)
+    loc = o.get_location(l_id)
+    assert loc.data.get("archived")
 
     logger.debug("Finishing up")
     o.patch(name="Continuous integration test")
     all_locations = o.get_locations()
     for location in all_locations:
-        location.delete()
+        if not location.data.get("archived"):
+            location.delete()
 
-    assert 0 == len(o.get_locations())
+    for location in o.get_locations():
+        assert location.data.get("archived")

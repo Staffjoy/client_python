@@ -1,6 +1,7 @@
 from ..resource import Resource
 from .worker import Worker
 from .schedule import Schedule
+from .shift import Shift
 
 
 class Role(Resource):
@@ -21,3 +22,12 @@ class Role(Resource):
 
     def get_schedule(self, id):
         return Schedule.get(parent=self, id=id)
+
+    def get_shifts(self, **kwargs):
+        return Shift.get_all(parent=self, **kwargs)
+
+    def get_shift(self, id):
+        return Shift.get(parent=self, id=id)
+
+    def create_shift(self, **kwargs):
+        return Shift.create(parent=self, **kwargs)
