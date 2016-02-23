@@ -164,6 +164,9 @@ class Resource:
 
         response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
 
+        if response.status_code not in cls.TRUTHY_CODES:
+            return base_obj._handle_request_exception(response)
+
         # No envelope on post requests
         data = response.json()
         obj.route[obj.ID_NAME] = data.get("id")
