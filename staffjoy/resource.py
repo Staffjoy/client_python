@@ -108,7 +108,7 @@ class Resource:
             raise UnauthorizedException(response=data)
 
         if code == requests.codes.not_found:
-            raise UnauthorizedException(response=data)
+            raise NotFoundException(response=data)
 
         # Generic error fallback
         request.raise_for_status()
