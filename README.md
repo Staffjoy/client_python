@@ -38,7 +38,7 @@ c = Client(key=YOUR_API_KEY)
 org = c.get_organization(ORG_ID)
 
 # See the org name
-print(org.data.name)
+print(org.data.get("name))
 
 # See all locations
 org.get_locations()
