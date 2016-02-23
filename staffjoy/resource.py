@@ -92,7 +92,8 @@ class Resource:
             self.route[self.ID_NAME] = self.data["id"]
         return self.config.BASE + self.PATH.format(**self.route)
 
-    def _handle_request_exception(self, request):
+    @staticmethod
+    def _handle_request_exception(request):
         """Raise the proper exception based on the response"""
         try:
             data = request.json()
@@ -165,7 +166,7 @@ class Resource:
         response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
 
         if response.status_code not in cls.TRUTHY_CODES:
-            return base_obj._handle_request_exception(response)
+            return cls._handle_request_exception(response)
 
         # No envelope on post requests
         data = response.json()
