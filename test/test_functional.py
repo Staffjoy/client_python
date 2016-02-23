@@ -58,7 +58,9 @@ def test_org_crud():
     r.patch(name="Cocina")
     logger.debug("Adding worker")
     r.get_workers()
-    r.create_worker(email=TEST_WORKER)
+    r.create_worker(email=TEST_WORKER,
+                    min_hours_per_workweek=30,
+                    max_hours_per_week=40)
 
     logger.debug("Deleting worker")
     r.delete()
