@@ -37,6 +37,9 @@ c = Client(key=YOUR_API_KEY)
 # or email help@staffjoy.com
 org = c.get_organization(ORG_ID)
 
+# See the org name
+print(org.data.name)
+
 # See all locations
 org.get_locations()
 
