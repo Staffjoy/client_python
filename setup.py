@@ -1,8 +1,8 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name="staffjoy",
-      packages=["staffjoy"],
-      version="0.5",
+      packages=find_packages(),
+      version="0.6",
       description="Staffjoy API Wrapper in Python",
       author="Philip Thomas",
       author_email="help@staffjoy.com",
