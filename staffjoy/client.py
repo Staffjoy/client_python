@@ -3,6 +3,8 @@ from .resources.organization import Organization
 from .resources.cron import Cron
 from .resources.user import User
 from .resources.plan import Plan
+from .resources.chomp_task import ChompTask
+from .resources.mobius_task import MobiusTask
 
 
 class Client(Resource):
@@ -35,3 +37,23 @@ class Client(Resource):
 
     def get_plan(self, id):
         return Plan.get(parent=self, id=id)
+
+    def get_chomp_task(self, id):
+        # id is schedule id
+        return ChompTask.get(parent=self)
+
+    def get_chomp_tasks(self, **kwargs):
+        return ChompTask.get(parent=self)
+
+    def claim_chomp_task(self):
+        return ChompTask.create(parent=self)
+
+    def get_mobius_task(self, id):
+        # id is schedule id
+        return MobiusTask.get(parent=self)
+
+    def get_mobius_tasks(self, **kwargs):
+        return MobiusTask.get(parent=self)
+
+    def claim_mobius_task(self):
+        return MobiusTask.create(parent=self)
