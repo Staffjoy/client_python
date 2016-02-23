@@ -170,7 +170,7 @@ class Resource:
 
         # No envelope on post requests
         data = response.json()
-        obj.route[obj.ID_NAME] = data.get("id", obj.ID_NAME)
+        obj.route[obj.ID_NAME] = data.get("id", data.get(obj.ID_NAME))
         obj.data = data
 
         return obj
