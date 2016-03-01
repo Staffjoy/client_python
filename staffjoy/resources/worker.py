@@ -1,5 +1,6 @@
 from ..resource import Resource
 from .timeclock import Timeclock
+from .time_off_request import TimeOffRequest
 
 
 class Worker(Resource):
@@ -15,3 +16,12 @@ class Worker(Resource):
 
     def create_timeclock(self, **kwargs):
         return Timeclock.create(parent=self, **kwargs)
+
+    def get_time_off_requests(self, **kwargs):
+        return TimeOffRequest.get_all(parent=self, **kwargs)
+
+    def get_time_off_request(self, id):
+        return TimeOffRequest.get(parent=self, id=id)
+
+    def create_time_off_request(self, **kwargs):
+        return TimeOffRequest.create(parent=self, **kwargs)
