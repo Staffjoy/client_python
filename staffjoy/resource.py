@@ -81,7 +81,7 @@ class Resource:
         for data in objects_data:
             # Note that this approach does not get meta data
             return_objects.append(cls.get(parent=parent,
-                                          id=data.get(cls.ID_NAME),
+                                          id=data.get(cls.ID_NAME, data.get("id")),
                                           data=data))
 
         return return_objects
