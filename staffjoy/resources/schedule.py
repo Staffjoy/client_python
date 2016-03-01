@@ -2,6 +2,7 @@ from ..resource import Resource
 from .preference import Preference
 from .schedule_shift import ScheduleShift
 from .schedule_timeclock import ScheduleTimeclock
+from .schedule_time_off_request import ScheduleTimeOffRequest
 
 
 class Schedule(Resource):
@@ -23,3 +24,6 @@ class Schedule(Resource):
 
     def get_schedule_timeclocks(self, **kwargs):
         return ScheduleTimeclock.get_all(parent=self, **kwargs)
+
+    def get_schedule_time_off_requests(self, **kwargs):
+        return ScheduleTimeOffRequest.get_all(parent=self, **kwargs)
