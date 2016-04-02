@@ -71,7 +71,7 @@ class Resource:
         r = requests.get(base_obj._url(),
                          auth=(base_obj.key, ""),
                          params=params)
-        time.sleep(config.REQUEST_SLEEP)
+        time.sleep(self.config.REQUEST_SLEEP)
 
         if r.status_code not in cls.TRUTHY_CODES:
             return base_obj._handle_request_exception(r)
@@ -119,7 +119,7 @@ class Resource:
     def fetch(self):
         """Perform a read request against the resource"""
         r = requests.get(self._url(), auth=(self.key, ""))
-        time.sleep(config.REQUEST_SLEEP)
+        time.sleep(self.config.REQUEST_SLEEP)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
@@ -142,7 +142,7 @@ class Resource:
         """Delete the object"""
 
         r = requests.delete(self._url(), auth=(self.key, ""))
-        time.sleep(config.REQUEST_SLEEP)
+        time.sleep(self.config.REQUEST_SLEEP)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
@@ -150,7 +150,7 @@ class Resource:
     def patch(self, **kwargs):
         """Change attributes of the item"""
         r = requests.patch(self._url(), auth=(self.key, ""), data=kwargs)
-        time.sleep(config.REQUEST_SLEEP)
+        time.sleep(self.config.REQUEST_SLEEP)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
@@ -173,7 +173,7 @@ class Resource:
         obj = cls(key=parent.key, route=route, config=parent.config)
 
         response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
-        time.sleep(config.REQUEST_SLEEP)
+        time.sleep(self.config.REQUEST_SLEEP)
 
         if response.status_code not in cls.TRUTHY_CODES:
             return cls._handle_request_exception(response)
