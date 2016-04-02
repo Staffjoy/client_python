@@ -20,6 +20,10 @@ Authentication keys are currently tied to an individual user's account. To issue
 
 To get your organization ID, look at the URL path when you go to the Manager app while logged in.
 
+## Rate Limits
+
+This client sleeps for .5 seconds after every request. Thus, in a single thread, requests are limited to 120 per minute. This is done to avoid rate limiting. Staffjoy's API currently rate limits to 300 requests per second across keys and IPs. Thus, by using this library, you should never encounter a rate limit (assuming one executing thread per IP address).
+
 ## Updates
 
 If you use this library, please subscribe to the [Staffjoy API Updates Google Group](https://groups.google.com/forum/#!forum/staffjoy-api-updates) for important notifications about changes and deprecations.
@@ -60,6 +64,5 @@ role.create_worker(email="dantzig@7bridg.es")
 loc.delete()
 
 ```
-
 
 
