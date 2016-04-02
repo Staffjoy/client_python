@@ -74,7 +74,7 @@ class Resource:
         r = requests.get(base_obj._url(),
                          auth=(base_obj.key, ""),
                          params=params)
-        time.sleep(self.REQUEST_SLEEP)
+        time.sleep(cls.REQUEST_SLEEP)
 
         if r.status_code not in cls.TRUTHY_CODES:
             return base_obj._handle_request_exception(r)
@@ -176,7 +176,7 @@ class Resource:
         obj = cls(key=parent.key, route=route, config=parent.config)
 
         response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
-        time.sleep(self.REQUEST_SLEEP)
+        time.sleep(cls.REQUEST_SLEEP)
 
         if response.status_code not in cls.TRUTHY_CODES:
             return cls._handle_request_exception(response)
