@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = "0.13"
+version = "0.14"
 setup(name="staffjoy",
       packages=find_packages(),
       version=version,
