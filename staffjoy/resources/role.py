@@ -2,6 +2,7 @@ from ..resource import Resource
 from .worker import Worker
 from .schedule import Schedule
 from .shift import Shift
+from .recurring_shift import RecurringShift
 
 
 class Role(Resource):
@@ -31,3 +32,12 @@ class Role(Resource):
 
     def create_shift(self, **kwargs):
         return Shift.create(parent=self, **kwargs)
+
+    def get_recurring_shifts(self, **kwargs):
+        return RecurringShift.get_all(parent=self, **kwargs)
+
+    def get_recurring_shift(self, id):
+        return RecurringShift.get(parent=self, id=id)
+
+    def create_recurring_shift(self, **kwargs):
+        return RecurringShift.create(parent=self, **kwargs)
