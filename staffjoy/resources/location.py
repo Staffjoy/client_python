@@ -1,6 +1,9 @@
 from ..resource import Resource
 from .role import Role
 from .manager import Manager
+from .location_timeclock import LocationTimeclock
+from .location_time_off_request import LocationTimeOffRequest
+from .location_shift import LocationShift
 
 
 class Location(Resource):
@@ -25,3 +28,12 @@ class Location(Resource):
     def create_manager(self, **kwargs):
         """Typically just pass email"""
         return Manager.create(parent=self, **kwargs)
+
+    def get_timeclocks(self, **kwargs):
+        return LocationTimeclock.get_all(parent=self, **kwargs)
+
+    def get_time_off_requests(self, **kwargs):
+        return LocationTimeOffRequest.get_all(parent=self, **kwargs)
+
+    def get_shifts(self, **kwargs):
+        return LocationShift.get_all(parent=self, **kwargs)
