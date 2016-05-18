@@ -1,9 +1,9 @@
-import requests
 import time
 from copy import copy
+import requests
 
-from .config import config_from_env
-from .exceptions import UnauthorizedException, NotFoundException, BadRequestException
+from staffjoy.config import config_from_env
+from staffjoy.exceptions import UnauthorizedException, NotFoundException, BadRequestException
 
 
 class Resource:

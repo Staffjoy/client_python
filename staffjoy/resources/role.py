@@ -1,8 +1,8 @@
-from ..resource import Resource
-from .worker import Worker
-from .schedule import Schedule
-from .shift import Shift
-from .recurring_shift import RecurringShift
+from staffjoy.resource import Resource
+from staffjoy.resources.worker import Worker
+from staffjoy.resources.schedule import Schedule
+from staffjoy.resources.shift import Shift
+from staffjoy.resources.recurring_shift import RecurringShift
 
 
 class Role(Resource):

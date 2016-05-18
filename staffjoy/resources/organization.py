@@ -1,7 +1,7 @@
-from ..resource import Resource
-from .location import Location
-from .admin import Admin
-from .organization_worker import OrganizationWorker
+from staffjoy.resource import Resource
+from staffjoy.resources.location import Location
+from staffjoy.resources.admin import Admin
+from staffjoy.resources.organization_worker import OrganizationWorker
 
 
 class Organization(Resource):

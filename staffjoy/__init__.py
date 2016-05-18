@@ -1,3 +1,3 @@
-from .resource import Resource
-from .exceptions import UnauthorizedException, NotFoundException, BadRequestException
-from .client import Client
+from staffjoy.resource import Resource
+from staffjoy.exceptions import UnauthorizedException, NotFoundException, BadRequestException
+from staffjoy.client import Client

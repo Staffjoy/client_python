@@ -1,9 +1,9 @@
-from ..resource import Resource
-from .role import Role
-from .manager import Manager
-from .location_timeclock import LocationTimeclock
-from .location_time_off_request import LocationTimeOffRequest
-from .location_shift import LocationShift
+from staffjoy.resource import Resource
+from staffjoy.resources.role import Role
+from staffjoy.resources.manager import Manager
+from staffjoy.resources.location_timeclock import LocationTimeclock
+from staffjoy.resources.location_time_off_request import LocationTimeOffRequest
+from staffjoy.resources.location_shift import LocationShift
 
 
 class Location(Resource):

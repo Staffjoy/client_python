@@ -1,6 +1,6 @@
-from ..resource import Resource
-from .timeclock import Timeclock
-from .time_off_request import TimeOffRequest
+from staffjoy.resource import Resource
+from staffjoy.resources.timeclock import Timeclock
+from staffjoy.resources.time_off_request import TimeOffRequest
 
 
 class Worker(Resource):
