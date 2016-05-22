@@ -1,4 +1,4 @@
-from ..resource import Resource
+from staffjoy.resource import Resource
 
 
 class Admin(Resource):

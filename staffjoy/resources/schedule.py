@@ -1,8 +1,8 @@
-from ..resource import Resource
-from .preference import Preference
-from .schedule_shift import ScheduleShift
-from .schedule_timeclock import ScheduleTimeclock
-from .schedule_time_off_request import ScheduleTimeOffRequest
+from staffjoy.resource import Resource
+from staffjoy.resources.preference import Preference
+from staffjoy.resources.schedule_shift import ScheduleShift
+from staffjoy.resources.schedule_timeclock import ScheduleTimeclock
+from staffjoy.resources.schedule_time_off_request import ScheduleTimeOffRequest
 
 
 class Schedule(Resource):

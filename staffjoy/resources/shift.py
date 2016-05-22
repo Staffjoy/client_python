@@ -1,5 +1,5 @@
-from ..resource import Resource
-from .shift_eligible_workers import ShiftEligibleWorker
+from staffjoy.resource import Resource
+from staffjoy.resources.shift_eligible_workers import ShiftEligibleWorker
 
 
 class Shift(Resource):

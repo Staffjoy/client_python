@@ -1,10 +1,10 @@
-from .resource import Resource
-from .resources.organization import Organization
-from .resources.cron import Cron
-from .resources.user import User
-from .resources.plan import Plan
-from .resources.chomp_task import ChompTask
-from .resources.mobius_task import MobiusTask
+from staffjoy.resource import Resource
+from staffjoy.resources.organization import Organization
+from staffjoy.resources.cron import Cron
+from staffjoy.resources.user import User
+from staffjoy.resources.plan import Plan
+from staffjoy.resources.chomp_task import ChompTask
+from staffjoy.resources.mobius_task import MobiusTask
 
 
 class Client(Resource):

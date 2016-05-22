@@ -1,6 +1,6 @@
-from ..resource import Resource
-from .session import Session
-from .apikey import ApiKey
+from staffjoy.resource import Resource
+from staffjoy.resources.session import Session
+from staffjoy.resources.apikey import ApiKey
 
 
 class User(Resource):
