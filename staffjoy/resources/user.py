@@ -11,7 +11,7 @@ class User(Resource):
         return Session.get_all(parent=self)
 
     def get_session(self, id):
-        return Session.get(parset=self, id=id)
+        return Session.get(parent=self, id=id)
 
     def get_apikeys(self):
         return ApiKey.get_all(parent=self)
