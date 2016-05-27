@@ -19,7 +19,7 @@ class Role(Resource):
         return Worker.create(parent=self, **kwargs)
 
     def get_schedules(self, **kwargs):
-        return Schedule.get_all(parent=self)
+        return Schedule.get_all(parent=self, **kwargs)
 
     def get_schedule(self, id):
         return Schedule.get(parent=self, id=id)
