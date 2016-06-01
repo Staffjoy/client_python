@@ -8,8 +8,8 @@ class Organization(Resource):
     PATH = "organizations/{organization_id}"
     ID_NAME = "organization_id"
 
-    def get_locations(self):
-        return Location.get_all(parent=self)
+    def get_locations(self, **kwargs):
+        return Location.get_all(parent=self, **kwargs)
 
     def get_location(self, id):
         return Location.get(parent=self, id=id)
