@@ -8,9 +8,10 @@ from staffjoy.exceptions import UnauthorizedException, NotFoundException, BadReq
 
 MICROSECONDS_PER_SECOND = 10**6
 
+
 class Resource:
     # Slow each request to this (bc of rate limits)
-    REQUEST_TIME_MICROSECONDS = 0.3 * MICROSECONDS_PER_SECOND # 0.3 seconds
+    REQUEST_TIME_MICROSECONDS = 0.3 * MICROSECONDS_PER_SECOND  # 0.3 seconds
 
     PATH = ""  # URL path added to base, including route variables
     ID_NAME = None  # What is this ID called in the route of children?
@@ -202,9 +203,10 @@ class Resource:
     def _delay_for_ratelimits(cls, start):
         """If request was shorter than max request time, delay"""
         stop = datetime.now()
-        duration_microseconds = (stop-start).microseconds
+        duration_microseconds = (stop - start).microseconds
         if duration_microseconds < cls.REQUEST_TIME_MICROSECONDS:
-            time.sleep((cls.REQUEST_TIME_MICROSECONDS - duration_microseconds) / MICROSECONDS_PER_SECOND)
+            time.sleep((cls.REQUEST_TIME_MICROSECONDS - duration_microseconds)
+                       / MICROSECONDS_PER_SECOND)
 
     def __str__(self):
         return "{} id {}".format(self.__class__.__name__,
