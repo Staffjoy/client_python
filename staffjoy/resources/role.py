@@ -2,6 +2,7 @@ from staffjoy.resource import Resource
 from staffjoy.resources.worker import Worker
 from staffjoy.resources.schedule import Schedule
 from staffjoy.resources.shift import Shift
+from staffjoy.resources.shift_query import ShiftQuery
 from staffjoy.resources.recurring_shift import RecurringShift
 
 
@@ -32,6 +33,9 @@ class Role(Resource):
 
     def create_shift(self, **kwargs):
         return Shift.create(parent=self, **kwargs)
+
+    def get_shift_query(self, **kwargs):
+        return ShiftQuery.get_all(parent=self, **kwargs)
 
     def get_recurring_shifts(self, **kwargs):
         return RecurringShift.get_all(parent=self, **kwargs)
