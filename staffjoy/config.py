@@ -4,7 +4,7 @@ import logging
 class DefaultConfig:
     ENV = "prod"
     LOG_LEVEL = logging.INFO
-    BASE = "https://www.staffjoy.com/api/v2/"
+    BASE = "https://suite.staffjoy.com/api/v2/"
     REQUEST_SLEEP = 0.5
 
 
