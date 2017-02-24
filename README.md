@@ -4,11 +4,11 @@ A light wrapper for the [Staffjoy](https://www.staffjoy.com) API in Python.
 
 This library does not include permissions management, and it is primarily used across microservices internally. Some of its features include internal-only endpoints.
 
-[![Build Status](https://travis-ci.org/Staffjoy/client_python.svg?branch=master)](https://travis-ci.org/Staffjoy/client_python)
+[![Build Status](https://travis-ci.org/Staffjoy/client_python.svg?branch=master)](https://travis-ci.org/Staffjoy/client_python) [![Moonlight](https://img.shields.io/badge/Contractors-1-brightgreen.svg)](https://moonlightwork.com/staffjoy)
 
 ## Installation
 
-`pip install staffjoy`
+`pip install --upgrade staffjoy`
 
 ## Authentication
 
@@ -22,11 +22,7 @@ To get your organization ID, look at the URL path when you go to the Manager app
 
 ## Rate Limits
 
-This client sleeps for .5 seconds after every request. Thus, in a single thread, requests are limited to 120 per minute. This is done to avoid rate limiting. Staffjoy's API currently rate limits to 300 requests per second across keys and IPs. Thus, by using this library, you should never encounter a rate limit (assuming one executing thread per IP address).
-
-## Updates
-
-If you use this library, please subscribe to the [Staffjoy API Updates Google Group](https://groups.google.com/forum/#!forum/staffjoy-api-updates) for important notifications about changes and deprecations.
+This client sleeps after every request in order to limit requests to 120 per minute. This is done to avoid rate limiting. Staffjoy's API currently rate limits to 300 requests per second across keys and IPs. Thus, by using this library, you should never encounter a rate limit (assuming one executing thread per IP address).
 
 ## Usage
 

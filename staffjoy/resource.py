@@ -17,8 +17,10 @@ class Resource:
     ID_NAME = None  # What is this ID called in the route of children?
     META_ENVELOPES = []  # Metadata keys for what to unpack from response
     ENVELOPE = "data"  # We "envelope" response data in the "data" section
-    TRUTHY_CODES = [requests.codes.ok, requests.codes.created,
-                    requests.codes.no_content, requests.codes.accepted]
+    TRUTHY_CODES = [
+        requests.codes.ok, requests.codes.created, requests.codes.no_content,
+        requests.codes.accepted
+    ]
 
     def __init__(self,
                  key="",
@@ -75,9 +77,8 @@ class Resource:
         """Perform a read request against the resource"""
 
         start = datetime.now()
-        r = requests.get(base_obj._url(),
-                         auth=(base_obj.key, ""),
-                         params=params)
+        r = requests.get(
+            base_obj._url(), auth=(base_obj.key, ""), params=params)
         cls._delay_for_ratelimits(start)
 
         if r.status_code not in cls.TRUTHY_CODES:
@@ -89,10 +90,11 @@ class Resource:
         return_objects = []
         for data in objects_data:
             # Note that this approach does not get meta data
-            return_objects.append(cls.get(parent=parent,
-                                          id=data.get(cls.ID_NAME, data.get(
-                                              "id")),
-                                          data=data))
+            return_objects.append(
+                cls.get(
+                    parent=parent,
+                    id=data.get(cls.ID_NAME, data.get("id")),
+                    data=data))
 
         return return_objects
 

@@ -16,7 +16,7 @@ class StageConfig(DefaultConfig):
 class DevelopmentConfig(DefaultConfig):
     ENV = "dev"
     LOG_LEVEL = logging.DEBUG
-    BASE = "http://dev.staffjoy.com/api/v2/"
+    BASE = "http://suite.local/api/v2/"
 
 
 config_from_env = {  # Determined in main.py
