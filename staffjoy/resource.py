@@ -1,14 +1,17 @@
 import time
+from datetime import datetime
 from copy import copy
 import requests
 
 from staffjoy.config import config_from_env
 from staffjoy.exceptions import UnauthorizedException, NotFoundException, BadRequestException
 
+MICROSECONDS_PER_SECOND = 10**6
+
 
 class Resource:
-    # Seconds to sleep between requests (bc of rate limits)
-    REQUEST_SLEEP = 0.5
+    # Slow each request to this (bc of rate limits)
+    REQUEST_TIME_MICROSECONDS = 0.3 * MICROSECONDS_PER_SECOND  # 0.3 seconds
 
     PATH = ""  # URL path added to base, including route variables
     ID_NAME = None  # What is this ID called in the route of children?
@@ -73,9 +76,11 @@ class Resource:
         base_obj = cls(key=parent.key, route=route, config=parent.config)
         """Perform a read request against the resource"""
 
-        r = requests.get(
-            base_obj._url(), auth=(base_obj.key, ""), params=params)
-        time.sleep(cls.REQUEST_SLEEP)
+        start = datetime.now()
+        r = requests.get(base_obj._url(),
+                         auth=(base_obj.key, ""),
+                         params=params)
+        cls._delay_for_ratelimits(start)
 
         if r.status_code not in cls.TRUTHY_CODES:
             return base_obj._handle_request_exception(r)
@@ -123,8 +128,9 @@ class Resource:
 
     def fetch(self):
         """Perform a read request against the resource"""
+        start = datetime.now()
         r = requests.get(self._url(), auth=(self.key, ""))
-        time.sleep(self.REQUEST_SLEEP)
+        self._delay_for_ratelimits(start)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
@@ -146,16 +152,18 @@ class Resource:
     def delete(self):
         """Delete the object"""
 
+        start = datetime.now()
         r = requests.delete(self._url(), auth=(self.key, ""))
-        time.sleep(self.REQUEST_SLEEP)
+        self._delay_for_ratelimits(start)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
 
     def patch(self, **kwargs):
         """Change attributes of the item"""
+        start = datetime.now()
         r = requests.patch(self._url(), auth=(self.key, ""), data=kwargs)
-        time.sleep(self.REQUEST_SLEEP)
+        self._delay_for_ratelimits(start)
 
         if r.status_code not in self.TRUTHY_CODES:
             return self._handle_request_exception(r)
@@ -177,8 +185,9 @@ class Resource:
 
         obj = cls(key=parent.key, route=route, config=parent.config)
 
+        start = datetime.now()
         response = requests.post(obj._url(), auth=(obj.key, ""), data=kwargs)
-        time.sleep(cls.REQUEST_SLEEP)
+        cls._delay_for_ratelimits(start)
 
         if response.status_code not in cls.TRUTHY_CODES:
             return cls._handle_request_exception(response)
@@ -192,6 +201,15 @@ class Resource:
 
     def get_id(self):
         return self.data.get("id", self.route.get(self.ID_NAME))
+
+    @classmethod
+    def _delay_for_ratelimits(cls, start):
+        """If request was shorter than max request time, delay"""
+        stop = datetime.now()
+        duration_microseconds = (stop - start).microseconds
+        if duration_microseconds < cls.REQUEST_TIME_MICROSECONDS:
+            time.sleep((cls.REQUEST_TIME_MICROSECONDS - duration_microseconds)
+                       / MICROSECONDS_PER_SECOND)
 
     def __str__(self):
         return "{} id {}".format(self.__class__.__name__,
