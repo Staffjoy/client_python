@@ -77,9 +77,8 @@ class Resource:
         """Perform a read request against the resource"""
 
         start = datetime.now()
-        r = requests.get(base_obj._url(),
-                         auth=(base_obj.key, ""),
-                         params=params)
+        r = requests.get(
+            base_obj._url(), auth=(base_obj.key, ""), params=params)
         cls._delay_for_ratelimits(start)
 
         if r.status_code not in cls.TRUTHY_CODES:
