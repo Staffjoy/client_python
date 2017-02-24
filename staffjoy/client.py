@@ -9,10 +9,8 @@ from staffjoy.resources.mobius_task import MobiusTask
 
 class Client(Resource):
     def get_organizations(self, limit=25, offset=0, **kwargs):
-        return Organization.get_all(parent=self,
-                                    limit=limit,
-                                    offset=offset,
-                                    **kwargs)
+        return Organization.get_all(
+            parent=self, limit=limit, offset=offset, **kwargs)
 
     def get_organization(self, id):
         return Organization.get(parent=self, id=id)
