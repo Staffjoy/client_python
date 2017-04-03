@@ -10,6 +10,15 @@ This library does not include permissions management, and it is primarily used a
 
 `pip install --upgrade staffjoy`
 
+## Self-Hosted Use
+
+If you are self-hosting Staffjoy on a custom domain, please pass a `url_base` to the client. It defaults to `https://suite.staffjoy.com/api/v2/"`. (Trailing slash may matter).
+
+```python
+from Staffjoy import Client
+c = Client(key=YOUR_API_KEY, url_base="https://staffjoy.example.com/api/v2/")
+```
+
 ## Authentication
 
 Authentication keys are currently tied to an individual user's account. To issue multiple keys, we currently suggest 
