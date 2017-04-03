@@ -26,6 +26,7 @@ class Resource:
                  key="",
                  config=None,
                  env="prod",
+                 url_base=None,
                  data={},
                  route={},
                  meta={}):
@@ -33,6 +34,10 @@ class Resource:
         self.key = key
 
         self.config = config or config_from_env.get(env, "prod")
+
+        # Used for self-hosted Staffjoy users
+        if url_base:
+            self.config.BASE = url_base
 
         # These should be overridden by child classes
         self.data = data  # Data from the read method
