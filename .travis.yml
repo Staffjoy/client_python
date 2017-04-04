@@ -4,7 +4,7 @@ python:
 - '3.5'
 script:
 - pip install -r requirements-test.txt
-- make test
+#- make test
 deploy:
   provider: pypi
   user: philipithomas
