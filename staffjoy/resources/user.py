@@ -6,6 +6,7 @@ from staffjoy.resources.apikey import ApiKey
 class User(Resource):
     PATH = "users/{user_id}"
     ID_NAME = "user_id"
+    META_ENVELOPES = ["role_member", "location_manager", "organization_admin"]
 
     def get_sessions(self):
         return Session.get_all(parent=self)
