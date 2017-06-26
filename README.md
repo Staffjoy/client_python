@@ -4,7 +4,7 @@ A light wrapper for the [Staffjoy](https://www.staffjoy.com) API in Python.
 
 This library does not include permissions management, and it is primarily used across microservices internally. Some of its features include internal-only endpoints.
 
-[![Build Status](https://travis-ci.org/Staffjoy/client_python.svg?branch=master)](https://travis-ci.org/Staffjoy/client_python) [![Moonlight](https://img.shields.io/badge/Contractors-1-brightgreen.svg)](https://moonlightwork.com/staffjoy)
+[![Build Status](https://travis-ci.org/Staffjoy/client_python.svg?branch=master)](https://travis-ci.org/Staffjoy/client_python) [![Moonlight contractors](https://img.shields.io/badge/contractors-1147-brightgreen.svg)](https://moonlightwork.com/for/staffjoy)
 
 ## Installation
 
